@@ -1,4 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
+// في أعلى الملف بعد useState
+const combinedVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      }
+    },
+    hover: { 
+      scale: 1.05, 
+      rotateY: 5,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 15
+      }
+    },
+    rest: { scale: 1, rotateY: 0 }
+  };
 import {
   FaUtensils,
   FaCoffee,
@@ -233,24 +256,17 @@ const Services = () => {
           animate={isInView ? 'visible' : 'hidden'}
         >
           {services.map((service) => (
-            <motion.div
-              key={service.id}
-              className={`service-card ${activeService === service.id ? 'active' : ''} ${
-                hoveredService === service.id ? 'hovered' : ''
-              }`}
-              variants={itemVariants}
-              initial="hidden"
-              whileHover="hover"
-              variants={cardHoverVariants} // hover variant
-              onMouseEnter={() => setHoveredService(service.id)}
-              onMouseLeave={() => setHoveredService(null)}
-              onClick={() => handleServiceClick(service.id)}
-            >
-              <div
-                className="card-bg-effect"
-                style={{ background: `linear-gradient(135deg, ${service.color}15, ${service.color}35)` }}
-              />
-
+          <motion.div
+          key={service.id}
+          className={`service-card ${activeService === service.id ? 'active' : ''} ${hoveredService === service.id ? 'hovered' : ''}`}
+          variants={combinedVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover="hover"
+          onMouseEnter={() => setHoveredService(service.id)}
+          onMouseLeave={() => setHoveredService(null)}
+          onClick={() => handleServiceClick(service.id)}
+        >
               <motion.div
                 className="service-icon-container"
                 whileHover={{ rotate: 360 }}
