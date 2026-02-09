@@ -93,15 +93,7 @@ const Services = () => {
       color: '#10b981',
       stats: { value: '24/7', label: 'Access' },
     },
-    {
-      id: 5,
-      icon: <FaWineBottle />,
-      title: 'Wine Tasting',
-      description: 'Explore our curated selection of Mediterranean wines with guided tasting sessions.',
-      features: ['Wine Pairing', 'Sommelier Service', 'Wine Club', 'Imported Selection'],
-      color: '#f59e0b',
-      stats: { value: '150+', label: 'Wines' },
-    },
+   
     {
       id: 6,
       icon: <FaConciergeBell />,
