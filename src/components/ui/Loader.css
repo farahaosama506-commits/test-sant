@@ -1,0 +1,107 @@
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .loader-container {
+    text-align: center;
+  }
+  
+  .coffee-cup {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 2rem;
+  }
+  
+  .cup {
+    width: 80px;
+    height: 60px;
+    background: #fff;
+    border-radius: 0 0 40px 40px;
+    position: relative;
+    margin: 0 auto;
+  }
+  
+  .cup:before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 30px;
+    border: 6px solid #fff;
+    border-radius: 0 20px 20px 0;
+    right: -26px;
+    top: 5px;
+  }
+  
+  .handle {
+    position: absolute;
+    right: -10px;
+    top: 10px;
+    width: 30px;
+    height: 40px;
+    border: 6px solid #fff;
+    border-left: none;
+    border-radius: 0 20px 20px 0;
+  }
+  
+  .steam {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .steam-1, .steam-2, .steam-3 {
+    position: absolute;
+    width: 6px;
+    height: 20px;
+    background: #fff;
+    border-radius: 10px;
+    animation: steam 2s infinite;
+  }
+  
+  .steam-1 {
+    left: -20px;
+    animation-delay: 0.2s;
+  }
+  
+  .steam-2 {
+    left: 0;
+    animation-delay: 0.4s;
+  }
+  
+  .steam-3 {
+    left: 20px;
+    animation-delay: 0.6s;
+  }
+  
+  @keyframes steam {
+    0% { transform: translateY(0) scale(1); opacity: 0.5; }
+    100% { transform: translateY(-30px) scale(1.5); opacity: 0; }
+  }
+  
+  .loader-text h2 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+  }
+  
+  .loader-text p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }

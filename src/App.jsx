@@ -1,12 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/layout/Header';
+import Hero from './components/sections/Hero';
 import Gallery from './components/sections/Gallery';
 import Services from './components/sections/Services';
+import Menu from './components/sections/Menu';
+import Contact from './components/sections/Contact';
+import Footer from './components/layout/Footer';
+import Toast from './components/ui/Toast';
+import Loader from './components/ui/Loader';
+import FloatingIcons from './components/ui/FloatingIcons';
 import './styles/globals.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [reservationData, setReservationData] = useState({
+    name: '',
+    email: '',
+    date: '',
+    time: '',
+    guests: '',
+    phone: '',
+    specialRequests: ''
+  });
 
+  // Simulate loading
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -15,98 +34,144 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Handle reservation submission
+  const handleReservationSubmit = (data) => {
+    setReservationData(data);
+    
+    // Show success message
+    setToastMessage(`✅ Reservation confirmed for ${data.guests} guests on ${data.date} at ${data.time}! We'll contact you soon.`);
+    setShowToast(true);
+    
+    // Hide toast after 5 seconds
+    setTimeout(() => {
+      setShowToast(false);
+    }, 5000);
+    
+    // Reset form after submission (handled in Contact component)
+  };
+
+  // Handle menu item added to cart
+  const handleAddToCart = (item) => {
+    setToastMessage(`🛒 Added ${item.name} to cart!`);
+    setShowToast(true);
+    
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+  };
+
+  // Handle scroll to section
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Floating icons data
+  const floatingIcons = [
+    {
+      id: 1,
+      icon: '☕',
+      style: { top: '15%', left: '5%', fontSize: '4rem', opacity: 0.1 },
+      animation: 'float 6s ease-in-out infinite'
+    },
+    {
+      id: 2,
+      icon: '🚬',
+      style: { top: '25%', right: '10%', fontSize: '3rem', opacity: 0.1 },
+      animation: 'float 8s ease-in-out infinite 2s'
+    },
+    {
+      id: 3,
+      icon: '🍹',
+      style: { bottom: '20%', left: '15%', fontSize: '3.5rem', opacity: 0.1 },
+      animation: 'float 7s ease-in-out infinite 1s'
+    },
+    {
+      id: 4,
+      icon: '🍰',
+      style: { top: '60%', right: '15%', fontSize: '4rem', opacity: 0.1 },
+      animation: 'float 9s ease-in-out infinite 3s'
+    }
+  ];
+
   if (isLoading) {
-    return (
-      <div className="loader">
-        <div className="loader-circle"></div>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
     <div className="app">
-      <Header />
+      {/* Floating Background Icons */}
+      <FloatingIcons icons={floatingIcons} />
       
-      {/* Hero Section */}
-      <section id="home" className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">
-            Welcome to <span className="highlight">Santorini Café</span>
-          </h1>
-          <p className="hero-subtitle">
-            Where Mediterranean flavors meet breathtaking views
-          </p>
-          <div className="hero-buttons">
-            <button 
-              className="btn-primary"
-              onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              View Our Menu
-            </button>
-            <button 
-              className="btn-secondary"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Book a Table
-            </button>
-          </div>
-        </div>
-        <div className="hero-wave"></div>
-      </section>
-
-      {/* Gallery Section */}
-      <Gallery />
-
-      {/* Services Section */}
-      <Services />
-
-      {/* Temporary Placeholders */}
-      <section id="menu" style={{
-        padding: '6rem 2rem', 
-        textAlign: 'center',
-        background: 'linear-gradient(180deg, var(--white) 0%, var(--pale-blue) 100%)'
-      }}>
-        <h2 style={{
-          fontSize: '3rem', 
-          color: '#1e3a8a', 
-          marginBottom: '2rem',
-          background: 'linear-gradient(45deg, #1e3a8a, #0ea5e9)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text'
-        }}>
-          Menu Section
-        </h2>
-        <p style={{fontSize: '1.2rem', color: '#64748b'}}>Coming soon...</p>
-      </section>
-
-      <section id="contact" style={{
-        padding: '6rem 2rem', 
-        textAlign: 'center', 
-        background: 'linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%)', 
-        color: 'white'
-      }}>
-        <h2 style={{
-          fontSize: '3rem', 
-          marginBottom: '2rem',
-          textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
-        }}>
-          Contact Section
-        </h2>
-        <p style={{fontSize: '1.2rem', opacity: 0.9}}>Coming soon...</p>
-      </section>
-
+      {/* Header */}
+      <Header scrollToSection={scrollToSection} />
+      
+      {/* Main Content */}
+      <main>
+        {/* Hero Section */}
+        <Hero scrollToSection={scrollToSection} />
+        
+        {/* Gallery Section */}
+        <Gallery />
+        
+        {/* Services Section */}
+        <Services />
+        
+        {/* Menu Section */}
+        <Menu onAddToCart={handleAddToCart} />
+        
+        {/* Contact Section */}
+        <Contact 
+          onSubmitReservation={handleReservationSubmit}
+          initialData={reservationData}
+        />
+      </main>
+      
       {/* Footer */}
-      <footer style={{
-        background: '#0f172a',
-        color: 'white',
-        textAlign: 'center',
-        padding: '3rem 2rem',
-        fontSize: '0.9rem'
-      }}>
-        <p>&copy; {new Date().getFullYear()} Santorini Café. All rights reserved.</p>
-        <p style={{opacity: 0.7, marginTop: '0.5rem'}}>Crafted with ❤️ in Santorini</p>
-      </footer>
+      <Footer />
+      
+      {/* Toast Notifications */}
+      <Toast 
+        message={toastMessage}
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        type="success"
+      />
+      
+      {/* Back to Top Button */}
+      <button 
+        className="back-to-top"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Back to top"
+      >
+        ↑
+      </button>
+      
+      {/* Quick Contact Widget */}
+      <div className="quick-contact-widget">
+        <a href="tel:+302286012345" className="quick-contact-btn phone" aria-label="Call us">
+          📞
+        </a>
+        <a href="https://wa.me/302286012345" className="quick-contact-btn whatsapp" aria-label="WhatsApp">
+          💬
+        </a>
+        <button 
+          className="quick-contact-btn reservation"
+          onClick={() => scrollToSection('contact')}
+          aria-label="Make reservation"
+        >
+          🕐
+        </button>
+      </div>
     </div>
   );
 }
