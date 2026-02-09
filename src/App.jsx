@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/layout/Header';
 import Gallery from './components/sections/Gallery';
+import Services from './components/sections/Services';
 import './styles/globals.css';
 
 function App() {
@@ -38,15 +39,7 @@ function App() {
           <div className="hero-buttons">
             <button 
               className="btn-primary"
-              onClick={() => {
-                const menuSection = document.getElementById('menu');
-                if (menuSection) {
-                  menuSection.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  // مؤقتاً نوجه إلى gallery إذا menu ما موجود
-                  document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View Our Menu
             </button>
@@ -64,26 +57,43 @@ function App() {
       {/* Gallery Section */}
       <Gallery />
 
-      {/* Temporary Placeholders */}
-      <section id="services" style={{padding: '6rem 2rem', textAlign: 'center'}}>
-        <h2 style={{fontSize: '3rem', color: '#1e3a8a', marginBottom: '2rem'}}>
-          Services Section
-        </h2>
-        <p>Coming soon...</p>
-      </section>
+      {/* Services Section */}
+      <Services />
 
-      <section id="menu" style={{padding: '6rem 2rem', textAlign: 'center', background: '#f8fafc'}}>
-        <h2 style={{fontSize: '3rem', color: '#1e3a8a', marginBottom: '2rem'}}>
+      {/* Temporary Placeholders */}
+      <section id="menu" style={{
+        padding: '6rem 2rem', 
+        textAlign: 'center',
+        background: 'linear-gradient(180deg, var(--white) 0%, var(--pale-blue) 100%)'
+      }}>
+        <h2 style={{
+          fontSize: '3rem', 
+          color: '#1e3a8a', 
+          marginBottom: '2rem',
+          background: 'linear-gradient(45deg, #1e3a8a, #0ea5e9)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text'
+        }}>
           Menu Section
         </h2>
-        <p>Coming soon...</p>
+        <p style={{fontSize: '1.2rem', color: '#64748b'}}>Coming soon...</p>
       </section>
 
-      <section id="contact" style={{padding: '6rem 2rem', textAlign: 'center', background: '#1e3a8a', color: 'white'}}>
-        <h2 style={{fontSize: '3rem', marginBottom: '2rem'}}>
+      <section id="contact" style={{
+        padding: '6rem 2rem', 
+        textAlign: 'center', 
+        background: 'linear-gradient(135deg, #1e3a8a 0%, #0ea5e9 100%)', 
+        color: 'white'
+      }}>
+        <h2 style={{
+          fontSize: '3rem', 
+          marginBottom: '2rem',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+        }}>
           Contact Section
         </h2>
-        <p>Coming soon...</p>
+        <p style={{fontSize: '1.2rem', opacity: 0.9}}>Coming soon...</p>
       </section>
 
       {/* Footer */}
@@ -94,7 +104,7 @@ function App() {
         padding: '3rem 2rem',
         fontSize: '0.9rem'
       }}>
-        {/*<p>&copy; {new Date().getFullYear()} Santorini Café. All rights reserved.</p>*/}
+        <p>&copy; {new Date().getFullYear()} Santorini Café. All rights reserved.</p>
         <p style={{opacity: 0.7, marginTop: '0.5rem'}}>Crafted with ❤️ in Santorini</p>
       </footer>
     </div>
