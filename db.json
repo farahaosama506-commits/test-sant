@@ -1,0 +1,74 @@
+{
+  "reservations": [
+    {
+      "id": 1770989245336,
+      "name": "osama farha",
+      "phone": "0939196057",
+      "tableNumber": 2,
+      "time": "11:30",
+      "guests": "4",
+      "createdAt": "2026-02-13T13:27:25.336Z",
+      "status": "pending"
+    },
+    {
+      "id": 1770989342457,
+      "name": "osama farha",
+      "phone": "0939196057",
+      "tableNumber": 4,
+      "time": "16:00",
+      "guests": "3",
+      "createdAt": "2026-02-13T13:29:02.457Z",
+      "status": "pending"
+    }
+  ],
+  "tables": [
+    {
+      "id": "1",
+      "number": 1,
+      "capacity": 2,
+      "isAvailable": true
+    },
+    {
+      "id": "2",
+      "number": 2,
+      "capacity": 2,
+      "isAvailable": true
+    },
+    {
+      "id": "3",
+      "number": 3,
+      "capacity": 4,
+      "isAvailable": true
+    },
+    {
+      "id": "4",
+      "number": 4,
+      "capacity": 4,
+      "isAvailable": true
+    },
+    {
+      "id": "5",
+      "number": 5,
+      "capacity": 6,
+      "isAvailable": true
+    },
+    {
+      "id": "6",
+      "number": 6,
+      "capacity": 6,
+      "isAvailable": true
+    },
+    {
+      "id": "7",
+      "number": 7,
+      "capacity": 8,
+      "isAvailable": true
+    },
+    {
+      "id": "8",
+      "number": 8,
+      "capacity": 8,
+      "isAvailable": true
+    }
+  ]
+}
