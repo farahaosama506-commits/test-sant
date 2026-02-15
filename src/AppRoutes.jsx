@@ -1,8 +1,8 @@
 // src/AppRoutes.jsx
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import OwnerDashboard from './pages/OwnerDashboard';
+//import React from 'react';
+//import { Routes, Route } from 'react-router-dom';
+//import HomePage from './pages/HomePage';
+//import OwnerDashboard from './pages/OwnerDashboard';
 
 const AppRoutes = ({ 
   onAddToCart, 

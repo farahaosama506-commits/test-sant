@@ -1,9 +1,8 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
-import { HashRouter } from 'react-router-dom';  // استيراد HashRouter
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import AppRoutes from './AppRoutes';
+import HomePage from './pages/HomePage';           // ← نستورد الـ HomePage مباشرة
 import FloatingIcons from './components/ui/FloatingIcons';
 import Toast from './components/ui/Toast';
 import Loader from './components/ui/Loader';
@@ -13,7 +12,6 @@ function App() {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
-  // دوال التعامل مع الإضافات والحجوزات
   const handleAddToCart = (item) => {
     setToastMessage(`تم إضافة ${item.name} إلى السلة`);
     setShowToast(true);
@@ -27,7 +25,6 @@ function App() {
   };
 
   useEffect(() => {
-    // محاكاة تحميل الصفحة
     setTimeout(() => setLoading(false), 1000);
   }, []);
 
@@ -36,28 +33,24 @@ function App() {
   }
 
   return (
-    <HashRouter>  {/* App كله ملفوف بـ HashRouter */}
-      <div className="App">
-        <Header />
-        <main>
-          <AppRoutes 
-            onAddToCart={handleAddToCart}
-            onSubmitReservation={handleSubmitReservation}
-            showToast={showToast}
-            toastMessage={toastMessage}
-            setShowToast={setShowToast}
-          />
-        </main>
-        <Footer />
-        <FloatingIcons />
-        <Toast 
-          message={toastMessage}
-          show={showToast}
-          onClose={() => setShowToast(false)}
-          type="success"
+    <div className="App">
+      <Header />
+      <main>
+        {/* بدل AppRoutes → نحط HomePage مباشرة */}
+        <HomePage 
+          onAddToCart={handleAddToCart}
+          onSubmitReservation={handleSubmitReservation}
         />
-      </div>
-    </HashRouter>
+      </main>
+      <Footer />
+      <FloatingIcons />
+      <Toast 
+        message={toastMessage}
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        type="success"
+      />
+    </div>
   );
 }
 
