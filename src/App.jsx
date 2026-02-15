@@ -1,52 +1,63 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
+import { HashRouter } from 'react-router-dom';  // استيراد HashRouter
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 import AppRoutes from './AppRoutes';
+import FloatingIcons from './components/ui/FloatingIcons';
+import Toast from './components/ui/Toast';
 import Loader from './components/ui/Loader';
-import './styles/globals.css';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
+  // دوال التعامل مع الإضافات والحجوزات
+  const handleAddToCart = (item) => {
+    setToastMessage(`تم إضافة ${item.name} إلى السلة`);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
 
-    return () => clearTimeout(timer);
+  const handleSubmitReservation = (data) => {
+    setToastMessage('تم إرسال الحجز بنجاح');
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  useEffect(() => {
+    // محاكاة تحميل الصفحة
+    setTimeout(() => setLoading(false), 1000);
   }, []);
 
-  const handleAddToCart = (item) => {
-    setToastMessage(`🛒 Added ${item.name} to cart!`);
-    setShowToast(true);
-    
-    setTimeout(() => {
-      setShowToast(false);
-    }, 3000);
-  };
-
-  const handleReservationSubmit = (data) => {
-    setToastMessage(`✅ Reservation confirmed for ${data.guests} guests at Table ${data.tableNumber}!`);
-    setShowToast(true);
-    
-    setTimeout(() => {
-      setShowToast(false);
-    }, 5000);
-  };
-
-  if (isLoading) {
+  if (loading) {
     return <Loader />;
   }
 
   return (
-    <AppRoutes
-      onAddToCart={handleAddToCart}
-      onSubmitReservation={handleReservationSubmit}
-      showToast={showToast}
-      toastMessage={toastMessage}
-      setShowToast={setShowToast}
-    />
+    <HashRouter>  {/* App كله ملفوف بـ HashRouter */}
+      <div className="App">
+        <Header />
+        <main>
+          <AppRoutes 
+            onAddToCart={handleAddToCart}
+            onSubmitReservation={handleSubmitReservation}
+            showToast={showToast}
+            toastMessage={toastMessage}
+            setShowToast={setShowToast}
+          />
+        </main>
+        <Footer />
+        <FloatingIcons />
+        <Toast 
+          message={toastMessage}
+          show={showToast}
+          onClose={() => setShowToast(false)}
+          type="success"
+        />
+      </div>
+    </HashRouter>
   );
 }
 
